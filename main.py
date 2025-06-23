@@ -17,7 +17,7 @@ milvus_helper = MilvusHelper(
     token=os.getenv("MILVUS_TOKEN")
 )
 
-COLLECTION_NAME = "images"
+COLLECTION_NAME = "similarity_embedding"
 
 @app.route('/api/v1/items/recommendations/<int:item_id>', methods=['GET'])
 def get_recommendations(item_id):
