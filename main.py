@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
-from similarity_model import get_similarity_model, get_image_vector
+from similarity_model import SimilarityModel
 from milvus_helpers import MilvusHelper
 import tempfile
 
@@ -11,7 +11,7 @@ app = Flask(__name__)
 load_dotenv()
 
 # Initialize models and helpers
-similarity_model = get_similarity_model()
+similarity_model = SimilarityModel()
 milvus_helper = MilvusHelper(
     uri=os.getenv("MILVUS_URI"),
     token=os.getenv("MILVUS_TOKEN")
@@ -108,8 +108,9 @@ def add_item():
         
         try:
             # Get image vector using the similarity model
-            vector = get_image_vector(temp_file_path)
-            embedding = similarity_model(vector)
+            vector = similarity_model.get_image_vector(temp_file_path)
+            model = similarity_model.get_model()
+            embedding = model(vector)
             embedding_list = embedding.numpy().flatten() # type: ignore[attr-defined]
             # Add to Milvus database
             result = milvus_helper.add_vector(

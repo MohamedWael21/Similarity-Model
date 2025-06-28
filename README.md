@@ -1,4 +1,4 @@
-# Image Similarity API
+# Similarity Model Api
 
 This project provides a Flask-based API for finding similar images using a pre-trained EfficientNetB0 model and Milvus as the vector database.
 
