@@ -4,8 +4,10 @@ from dotenv import load_dotenv
 from similarity_model import SimilarityModel
 from milvus_helpers import MilvusHelper
 import tempfile
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Load environment variables
 load_dotenv()
